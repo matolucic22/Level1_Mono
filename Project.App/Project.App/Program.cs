@@ -11,10 +11,9 @@ namespace Project.App
     {
         static void Main(string[] args)
         {
-            
-
-            StudentIdGenerator SIG = StudentIdGenerator.Instance;
-            DedicatedValidation DV = new DedicatedValidation();
+           
+            StudentIdGenerator StudIdGen = StudentIdGenerator.Instance;
+            DedicatedValidation DedicatedValidation = new DedicatedValidation();
             StudentContainer Lista = StudentContainer.Instance;
 
             string Ime, Prezime;
@@ -30,33 +29,33 @@ namespace Project.App
                     Student Stud = new Student();
                     do
                     {
-                        Console.WriteLine("Uesite ime:");
+                        Console.WriteLine("Unesite ime:");
                         Ime = Console.ReadLine();
-                        DV.checkString(Ime);
+                        DedicatedValidation.checkString(Ime);
                     }
                     while (string.IsNullOrEmpty(Ime) == true);
                     Stud.Name = Ime;
 
                     do
                     {
-                        Console.WriteLine("Uesite prezime:");
+                        Console.WriteLine("Unesite prezime:");
                         Prezime = Console.ReadLine();
-                        DV.checkString(Prezime);
+                        DedicatedValidation.checkString(Prezime);
                     }
                     while (string.IsNullOrEmpty(Prezime) == true);
                     Stud.LastName = Prezime;
 
                     do
                     {
-                        Console.WriteLine("Uesite GPA:");
+                        Console.WriteLine("Unesite GPA:");
                         GPA = double.Parse(Console.ReadLine());
-                        DV.checkGPA(GPA);
+                        DedicatedValidation.checkGPA(GPA);
                         
 
                     } while (GPA > 5 || GPA < 1);
                     Stud.GPA = GPA;
 
-                    Stud.ID = SIG.nextId();
+                    Stud.ID = StudIdGen.nextId();
 
                     
                     Lista.AddToList(Stud);
