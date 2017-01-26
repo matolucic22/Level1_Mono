@@ -6,19 +6,36 @@ using System.Threading.Tasks;
 
 namespace Project.Code
 {
-    class StudentContainer
+    public class StudentContainer
     {
-        public List<Student> students = new List<Student>();
-        public void Add(Student stud)
+        private static StudentContainer instance;
+        private List<Student> students = new List<Student>();
+       
+        public static StudentContainer Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new StudentContainer();
+                }
+                return instance;
+            }
+        }
+        public List<Student> GetSortedList()
+        {
+            return Sort(students);
+        }
+
+        public void AddToList(Student stud)
         {
             students.Add(stud);
         }
-        public void DisplaySTD()
+
+        public List<Student> Sort(List<Student> stud)
         {
-            while (students != null)
-            {
-                Console.WriteLine(students);
-            }
+            return stud.OrderBy(x => x.LastName).ToList();
         }
+        
     }
 }

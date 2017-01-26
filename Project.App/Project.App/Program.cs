@@ -11,11 +11,12 @@ namespace Project.App
     {
         static void Main(string[] args)
         {
-            Student Stud = new Student();
+            
 
             StudentIdGenerator SIG = StudentIdGenerator.Instance;
             DedicatedValidation DV = new DedicatedValidation();
-                    
+            StudentContainer Lista = StudentContainer.Instance;
+
             string Ime, Prezime;
             string Unos1;
             double GPA;
@@ -26,6 +27,7 @@ namespace Project.App
                 Unos1 = Console.ReadLine();
                 if (string.Equals(Unos1, Operations.ENLIST, StringComparison.CurrentCultureIgnoreCase))
                 {
+                    Student Stud = new Student();
                     do
                     {
                         Console.WriteLine("Uesite ime:");
@@ -49,18 +51,23 @@ namespace Project.App
                         Console.WriteLine("Uesite GPA:");
                         GPA = double.Parse(Console.ReadLine());
                         DV.checkGPA(GPA);
-                        Stud.GPA = GPA;
+                        
 
                     } while (GPA > 5 || GPA < 1);
+                    Stud.GPA = GPA;
+
                     Stud.ID = SIG.nextId();
+
+                    
+                    Lista.AddToList(Stud);
 
                 }
                 else if (string.Equals(Unos1, Operations.DISPLAY, StringComparison.CurrentCultureIgnoreCase))
                 {
-                    for (int i = 0; i < Stud.; i++)
-                    {
-                        Console.WriteLine(Stud[i].ID + "." + Stud.LastName + ", " + Stud.Name + " - " + Stud.GPA);
-                    }
+                    
+                    Display();
+                                       
+
                     ListFlag = false;
                 }
 
@@ -69,6 +76,16 @@ namespace Project.App
                     Console.WriteLine("Nepostojeća opcija.");
                 }
             } while (ListFlag == true);
+        }
+
+        public static void Display()
+        {
+            StudentContainer lt = StudentContainer.Instance;
+            List<Student> lista = lt.GetSortedList();
+            for (int i = 0; i < lista.Count; i++)
+            {
+                Console.WriteLine(lista[i].ID + ". " + lista[i].LastName + ", " + lista[i].Name + " - " + lista[i].GPA);
+            }
         }
     }
 }
